@@ -1,66 +1,79 @@
-import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { primaryAction, solutions } from '@/config/site';
 
-import { BrandLogo } from '@/components/brand-logo';
-import { navigation, services, solutions } from '@/config/site';
+const arrow = (
+  <svg aria-hidden="true" className="m-arrow" viewBox="0 0 12 12">
+    <path className="m-arrow__stem" d="M1 6h8" />
+    <path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" />
+  </svg>
+);
 
+/*
+  footer.closing, footer-statement on the lit ground (sections-library.md): row 1 the close-type close
+  (the h2, one line, the big button across the .wrap), row 2 the directory and the legal row.
+  Street and district only (rule 9); no phone, no printed email. No credits line: every photograph on the
+  site is the client's own file.
+*/
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-white">
-      <div className="site-container grid gap-12 py-16 lg:grid-cols-[1.25fr_0.75fr_0.75fr]">
-        <div className="max-w-md">
-          <BrandLogo />
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">
-            Practical business technology designed, built, and supported around the way your organization
-            actually works.
-          </p>
-          <div className="mt-6 grid gap-3 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <MapPin className="size-4 text-primary" aria-hidden="true" />
-              Malawi · 1st Floor, Meridien House, Victoria Avenue, Blantyre
-            </span>
-            <span className="flex items-center gap-2">
-              <Mail className="size-4 text-primary" aria-hidden="true" />
-              Contact email to be confirmed
-            </span>
+    <footer aria-labelledby="close-h" className="footer closing footer--statement" id="contact">
+      <div className="wrap">
+        <div className="closing__cta close--type">
+          <div className="section-head">
+            <h2 id="close-h">Bring us the counter as it runs today</h2>
+            <p>We map the sale from till to MRA EIS invoice, then suggest the first piece to build.</p>
           </div>
+          <a className="btn btn--primary btn--xl btn--wide" href={primaryAction.href}>
+            {primaryAction.label}
+            {arrow}
+          </a>
         </div>
-
-        <div>
-          <p className="text-sm font-semibold text-foreground">Explore</p>
-          <ul className="mt-5 grid gap-3">
-            {navigation.map((item) => (
-              <li key={item.href}>
-                <Link className="text-sm text-muted-foreground transition hover:text-primary" href={item.href}>
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-sm font-semibold text-foreground">Capabilities</p>
-          <ul className="mt-5 grid gap-3">
-            {[...solutions.slice(0, 3), ...services.slice(0, 2)].map((item) => (
-              <li key={item.title}>
-                <Link
-                  className="inline-flex items-center gap-1 text-sm text-muted-foreground transition hover:text-primary"
-                  href={'href' in item ? item.href : '/solutions'}
-                >
-                  {item.title}
-                  <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div className="border-t border-border">
-        <div className="site-container flex flex-col gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Unimarket Technologies v1.0.0.0004.</p>
-          <p>Next.js + React.js · TypeScript · Tailwind CSS · shadcnui · Nuxt.js cues</p>
+        <div className="closing__links">
+          <div className="grid">
+            <div className="span-4 stack-4">
+              <a aria-label="Unimarket Technologies home" className="nav__logo" href="/">
+                <img alt="Unimarket Technologies" height={160} src="/logos/unimarket-logo-horizontal-clear.png" width={652} />
+              </a>
+              <p className="footer__lede">POS software, card machines and MRA EIS invoicing for businesses in Malawi.</p>
+            </div>
+            <div className="span-3 start-6 footer__col">
+              <h3>Solutions</h3>
+              <ul>
+                {solutions.map((s) => (
+                  <li key={s.id}>
+                    <a href={s.listHref}>{s.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="span-2 footer__col">
+              <h3>Pages</h3>
+              <ul>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <a href="/solutions">Solutions</a>
+                </li>
+                <li>
+                  <a href="/solutions/pos-eis">POS and EIS</a>
+                </li>
+                <li>
+                  <a href="/contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+            <div className="span-2 footer__col">
+              <h3>Office</h3>
+              <ul>
+                <li>
+                  <a href="https://www.openstreetmap.org/search?query=Victoria%20Avenue%20Blantyre">Victoria Avenue, Blantyre</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer__legal">
+            <span>&copy; 2026 Unimarket Technologies</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,109 +1,271 @@
 import type { Metadata } from 'next';
-// import { Clock3, MapPin, MessagesSquare, ShieldCheck } from 'lucide-react';
+import type { CSSProperties } from 'react';
 
-import { ContactForm } from '@/components/contact-form';
-// import { SectionHeading } from '@/components/section-heading';
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { primaryAction, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Request a consultation',
+  title: 'Contact: POS and MRA EIS projects in Malawi',
   description:
-    'Tell Unimarket Technologies about a POS, MRA EIS, enterprise software, design, website, or application need.',
+    'Send Unimarket Technologies a few lines about your till, card payments or invoicing, and get a suggested first step from the Blantyre team.',
+  openGraph: {
+    title: 'Contact: POS and MRA EIS projects in Malawi',
+    description: 'A few lines about your till, card payments or invoicing are enough to start.',
+  },
 };
+
+/*
+  /contact (software, the short page). Screens at 1440x900:
+  hero triptych (outputs: a receipt, an EIS invoice, a website, an app screen, a report; sets change every 2.8 s,
+  the large button on the right line) · #enquiry the booking-form pattern, run by system.js and sent to the local
+  /api/enquiry prototype route, with the marquee-row moment as its last row · footer.closing
+*/
+
+const formats = [
+  'POS software',
+  'Card machines',
+  'MRA EIS invoicing',
+  'Stock control',
+  'Daily sales reports',
+  'Enterprise systems',
+  'UX/UI design',
+  'Websites',
+  'Full-stack apps',
+];
+
+const pos = (left: string, top: string, width: string, height?: string): CSSProperties => ({ left, top, width, height });
 
 export default function ContactPage() {
   return (
-    <>
-      <section className="hero-radial relative overflow-hidden border-b border-border">
-        <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0" />
-        <div className="site-container relative py-20 text-center sm:py-24">
-          <Badge>Request a consultation</Badge>
-          <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-bold tracking-[-0.05em] sm:text-6xl">
-            Tell us more about your software, or hardware needs
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-9 text-muted-foreground">
-            Tell us what you are trying to improve, replace, connect, or launch. We make anything possible and reachable.
-          </p>
+    <main id="top">
+      <section aria-labelledby="hero-h" className="hero hero--triptych" data-enter="">
+        <div className="wrap">
+          <div className="hero-text grid hero__grid">
+            <div className="span-3">
+              <h1 id="hero-h">POS and MRA EIS projects in Malawi</h1>
+              <p className="hero__lead">
+                Tell us how your counter runs today. Our team on Victoria Avenue, Blantyre, replies with a suggested
+                first step.
+              </p>
+            </div>
+            <div
+              aria-label="Work Unimarket builds: a till receipt, an invoice accepted by MRA EIS, a shop website, a delivery app and a daily sales report"
+              className="ly-collage span-6 start-4"
+              role="img"
+            >
+              <div className="ly-collage__set is-on">
+                <div className="ly-piece" style={pos('42%', '34%', '54%', '60%')}>
+                  <img alt="" src="/images/retail-pos-payment.webp" style={{ objectPosition: '50% 50%' }} />
+                </div>
+                <div className="ly-piece pc-receipt" style={pos('4%', '6%', '42%')}>
+                  <b>Front counter, Till 2</b>
+                  <small>Receipt R-20418 · 10:42</small>
+                  <div className="ln">
+                    <span>Cooking oil, 2 L ×2</span>
+                    <span>19,800</span>
+                  </div>
+                  <div className="ln">
+                    <span>Rice, 5 kg</span>
+                    <span>21,500</span>
+                  </div>
+                  <div className="ln">
+                    <span>Sugar, 2 kg</span>
+                    <span>6,450</span>
+                  </div>
+                  <div className="ln">
+                    <span>Bath soap ×4</span>
+                    <span>6,500</span>
+                  </div>
+                  <div className="ln ln--total">
+                    <span>Total MWK</span>
+                    <span>54,250</span>
+                  </div>
+                </div>
+                <div className="ly-piece pc-eis" style={pos('50%', '8%', '44%')}>
+                  <small>MRA EIS</small>
+                  <b>Invoice R-20418</b>
+                  <span className="pc-ok">Accepted 10:42:03</span>
+                </div>
+              </div>
+              <div aria-hidden="true" className="ly-collage__set">
+                <div className="ly-piece pc-browser" style={pos('4%', '6%', '62%', '62%')}>
+                  <div className="pc-browser__bar">
+                    <i />
+                    <i />
+                    <i />
+                    <span>Online orders</span>
+                  </div>
+                  <div className="pc-browser__body">
+                    <strong>Hardware and building supplies</strong>
+                    <span>Order by 15:00 for next-day delivery in Blantyre.</span>
+                    <em>Start an order</em>
+                  </div>
+                </div>
+                <div className="ly-piece pc-phone" style={pos('70%', '18%', '26%', '72%')}>
+                  <small>Delivery</small>
+                  <b>On its way</b>
+                  <span>Slot 14:00 to 16:00</span>
+                  <span className="pc-ok">Paid by card</span>
+                </div>
+                <div className="ly-piece" style={pos('8%', '72%', '54%', '24%')}>
+                  <img alt="" src="/images/technology-team.webp" style={{ objectPosition: '50% 40%' }} />
+                </div>
+              </div>
+              <div aria-hidden="true" className="ly-collage__set">
+                <div className="ly-piece" style={pos('4%', '6%', '56%', '50%')}>
+                  <img alt="" src="/images/inventory-team.webp" style={{ objectPosition: '50% 45%' }} />
+                </div>
+                <div className="ly-piece pc-report" style={pos('48%', '40%', '48%')}>
+                  <small>Day closed · 38 sales</small>
+                  <div className="bar">
+                    <span>Till 1</span>
+                    <i style={{ '--v': '72%' } as CSSProperties} />
+                  </div>
+                  <div className="bar">
+                    <span>Till 2</span>
+                    <i style={{ '--v': '54%' } as CSSProperties} />
+                  </div>
+                  <div className="bar">
+                    <span>Online</span>
+                    <i style={{ '--v': '18%' } as CSSProperties} />
+                  </div>
+                </div>
+                <div className="ly-piece pc-eis" style={pos('8%', '62%', '36%')}>
+                  <small>Card terminal</small>
+                  <b>MWK 54,250</b>
+                  <span className="pc-ok">Approved</span>
+                </div>
+              </div>
+            </div>
+            <div className="span-3 start-10 hero__cta">
+              <a className="btn btn--primary" href="#enquiry">
+                {primaryAction.label}
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section-space">
-        {/* <div className="site-container grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16"> */}
-          {/* <div>
-            <SectionHeading
-              description="A little operational context is more useful than a polished specification at this stage."
-              eyebrow="What happens next"
-              title="A practical first conversation."
-            />
-
-            <div className="mt-8 grid gap-4">
-              {[
-                {
-                  icon: MessagesSquare,
-                  title: 'We clarify the need',
-                  text: 'The workflow, affected people, current friction, and intended outcome.',
-                },
-                {
-                  icon: Clock3,
-                  title: 'We suggest a next step',
-                  text: 'A discovery session, prototype, assessment, or focused implementation scope.',
-                },
-                {
-                  icon: ShieldCheck,
-                  title: 'We avoid premature promises',
-                  text: 'Timelines, compliance, integrations, and pricing follow verified requirements.',
-                },
-              ].map((item) => (
-                <div className="flex gap-4 rounded-card border border-border bg-white p-5" key={item.title}>
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-primary">
-                    <item.icon className="size-4.5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h2 className="font-semibold">{item.title}</h2>
-                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.text}</p>
+      <section aria-labelledby="enquiry-h" className="section" id="enquiry">
+        <div className="wrap">
+          <div className="grid">
+            <div className="span-5 stack-6">
+              <h2 id="enquiry-h">Tell us about your business</h2>
+              <p className="t-lead">
+                A few lines about the counter and the problem are enough. We read each enquiry and reply with a
+                suggested next step.
+              </p>
+              <ul className="facts">
+                <li>
+                  Office:{' '}
+                  <a className="link" href="https://www.openstreetmap.org/search?query=Victoria%20Avenue%20Blantyre">
+                    Victoria Avenue, Blantyre
+                  </a>
+                </li>
+                <li>
+                  Or{' '}
+                  <a className="link" href={`mailto:${siteConfig.email}`}>
+                    email the team
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="form-panel span-6 start-7">
+              <form
+                action={`mailto:${siteConfig.email}`}
+                className="form"
+                data-endpoint="/api/enquiry"
+                data-sent="Your consultation request is in. While the site is a prototype it is checked and then discarded, so it does not reach our inbox yet."
+                encType="text/plain"
+                method="post"
+                noValidate
+              >
+                  <div className="field">
+                    <label htmlFor="f-name">Name</label>
+                    <input aria-describedby="f-name-err" autoComplete="name" id="f-name" name="name" required type="text" />
+                    <p className="field__error" hidden id="f-name-err">
+                      Write your name.
+                    </p>
                   </div>
+                  <div className="field">
+                    <label htmlFor="f-org">Business or organisation</label>
+                    <input
+                      aria-describedby="f-org-err"
+                      autoComplete="organization"
+                      id="f-org"
+                      name="organisation"
+                      required
+                      type="text"
+                    />
+                    <p className="field__error" hidden id="f-org-err">
+                      Write the name of the business.
+                    </p>
+                  </div>
+                  <div className="field">
+                    <label htmlFor="f-email">Email</label>
+                    <input
+                      aria-describedby="f-email-err"
+                      autoComplete="email"
+                      id="f-email"
+                      inputMode="email"
+                      name="email"
+                      required
+                      type="email"
+                    />
+                    <p className="field__error" hidden id="f-email-err">
+                      Write an email address with an @, like name@company.com.
+                    </p>
+                  </div>
+                  <div className="field">
+                    <label htmlFor="f-need">What you need</label>
+                    <select aria-describedby="f-need-err" defaultValue="" id="f-need" name="need" required>
+                      <option disabled value="">
+                        Choose one
+                      </option>
+                      <option>POS software and card machines</option>
+                      <option>MRA EIS invoicing</option>
+                      <option>Enterprise software</option>
+                      <option>UX/UI design</option>
+                      <option>A website</option>
+                      <option>A full-stack application</option>
+                      <option>Not sure yet</option>
+                    </select>
+                    <p className="field__error" hidden id="f-need-err">
+                      Choose what the enquiry is about.
+                    </p>
+                  </div>
+                <div className="field field--full">
+                  <label htmlFor="f-msg">How the counter works today</label>
+                  <textarea aria-describedby="f-msg-err" id="f-msg" name="message" required rows={3} />
+                  <p className="field__error" hidden id="f-msg-err">
+                    Write a line or two about what is slow, doubled or unclear.
+                  </p>
                 </div>
+                <div className="field field--full field--check">
+                  <input aria-describedby="f-ok-err" id="f-ok" name="consent" required type="checkbox" />
+                  <label htmlFor="f-ok">Unimarket Technologies may use these details to reply to this enquiry.</label>
+                  <p className="field__error" hidden id="f-ok-err">
+                    Tick the box so we may use your details to reply.
+                  </p>
+                </div>
+                <p className="t-small muted">Prototype: this form checks your details and sends them to a test address that keeps nothing.</p>
+                <div className="btn-row">
+                  <button className="btn btn--primary" type="submit">
+                    {primaryAction.label}
+                  </button>
+                </div>
+                <p className="form__status" data-form-status="" role="status" />
+              </form>
+            </div>
+          </div>
+          <div className="enquiry-marquee" data-moment="marquee-row" data-moment-opts='{"speed": 36}'>
+            <ul className="mo-mq__track">
+              {formats.map((f) => (
+                <li key={f}>{f}</li>
               ))}
-            </div>
-
-            <div className="mt-8 rounded-card bg-brand-950 p-6 text-white">
-              <MapPin className="size-5 text-brand-500" aria-hidden="true" />
-              <p className="mt-4 font-semibold">Based in Malawi</p>
-              <p className="mt-2 text-sm leading-7 text-white/65">
-                Exact office, phone, email, and service-area details are intentionally left unclaimed in this
-                prototype until verified.
-              </p>
-            </div>
-          </div> */}
-
-          {/* <Card className="p-6 shadow-card sm:p-8 lg:p-10">
-            <div className="mb-8">
-              <p className="text-sm font-semibold text-primary">Prototype enquiry form</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-[-0.035em] sm:text-3xl">
-                Tell us about the opportunity.
-              </h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                This form demonstrates interaction and validation. It does not send external messages yet.
-              </p>
-            </div>
-            <ContactForm />
-          </Card> */}
-        {/* </div> */}
-
-          <Card className="p-6 shadow-card sm:p-8 lg:p-10">
-            <div className="mb-8">
-              <p className="text-sm font-semibold text-primary">Prototype enquiry form</p>
-              <h2 className="mt-2 text-2xl font-bold tracking-[-0.035em] sm:text-3xl">
-                Tell us about the opportunity.
-              </h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                This form demonstrates interaction and validation. It does not send external messages yet.
-              </p>
-            </div>
-            <ContactForm />
-          </Card>
+            </ul>
+          </div>
+        </div>
       </section>
-    </>
+    </main>
   );
 }
