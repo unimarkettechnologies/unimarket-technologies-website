@@ -17,20 +17,9 @@ export const metadata: Metadata = {
   /contact (software, the short page). Screens at 1440x900:
   hero triptych (outputs: a receipt, an EIS invoice, a website, an app screen, a report; sets change every 2.8 s,
   the large button on the right line) · #enquiry the booking-form pattern, run by system.js and sent to the local
-  /api/enquiry prototype route, with the marquee-row moment as its last row · footer.closing
+  /api/enquiry prototype route · footer.closing
 */
 
-const formats = [
-  'POS software',
-  'Card machines',
-  'MRA EIS invoicing',
-  'Stock control',
-  'Daily sales reports',
-  'Enterprise systems',
-  'UX/UI design',
-  'Websites',
-  'Full-stack apps',
-];
 
 const pos = (left: string, top: string, width: string, height?: string): CSSProperties => ({ left, top, width, height });
 
@@ -53,7 +42,7 @@ export default function ContactPage() {
               role="img"
             >
               <div className="ly-collage__set is-on">
-                <div className="ly-piece" style={pos('42%', '34%', '54%', '60%')}>
+                <div className="ly-piece" style={pos('50%', '34%', '46%', '60%')}>
                   <img alt="" src="/images/retail-pos-payment.webp" style={{ objectPosition: '50% 50%' }} />
                 </div>
                 <div className="ly-piece pc-receipt" style={pos('4%', '6%', '42%')}>
@@ -83,7 +72,8 @@ export default function ContactPage() {
                 <div className="ly-piece pc-eis" style={pos('50%', '8%', '44%')}>
                   <small>MRA EIS</small>
                   <b>Invoice R-20418</b>
-                  <span className="pc-ok">Accepted 10:42:03</span>
+                  <small>10:42:03</small>
+                  <span className="pc-ok">Accepted</span>
                 </div>
               </div>
               <div aria-hidden="true" className="ly-collage__set">
@@ -106,12 +96,12 @@ export default function ContactPage() {
                   <span>Slot 14:00 to 16:00</span>
                   <span className="pc-ok">Paid by card</span>
                 </div>
-                <div className="ly-piece" style={pos('8%', '72%', '54%', '24%')}>
+                <div className="ly-piece" style={pos('8%', '72%', '46%', '24%')}>
                   <img alt="" src="/images/technology-team.webp" style={{ objectPosition: '50% 40%' }} />
                 </div>
               </div>
               <div aria-hidden="true" className="ly-collage__set">
-                <div className="ly-piece" style={pos('4%', '6%', '56%', '50%')}>
+                <div className="ly-piece" style={pos('4%', '6%', '46%', '50%')}>
                   <img alt="" src="/images/inventory-team.webp" style={{ objectPosition: '50% 45%' }} />
                 </div>
                 <div className="ly-piece pc-report" style={pos('48%', '40%', '48%')}>
@@ -145,29 +135,46 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <section aria-labelledby="office-h" className="section statement" data-moment="liquid-type" id="office">
+        <div className="wrap">
+          <h2 className="mo-lt__type" id="office-h">
+            Victoria Avenue, Blantyre
+          </h2>
+          <p className="statement__sub t-lead">
+            The Unimarket office in Blantyre, where we plan POS, card machine and MRA EIS work with the teams who run
+            the counter.
+          </p>
+          <a className="link statement__link" href="https://www.openstreetmap.org/search?query=Victoria%20Avenue%20Blantyre">
+            Get directions
+          </a>
+        </div>
+      </section>
+
       <section aria-labelledby="enquiry-h" className="section" id="enquiry">
         <div className="wrap">
           <div className="grid">
             <div className="span-5 stack-6">
               <h2 id="enquiry-h">Tell us about your business</h2>
               <p className="t-lead">
-                A few lines about the counter and the problem are enough. We read each enquiry and reply with a
-                suggested next step.
+                A few lines about the counter and the problem are enough. We reply with a suggested next step.
               </p>
               <ul className="facts">
                 <li>
-                  Office:{' '}
-                  <a className="link" href="https://www.openstreetmap.org/search?query=Victoria%20Avenue%20Blantyre">
-                    Victoria Avenue, Blantyre
-                  </a>
-                </li>
-                <li>
-                  Or{' '}
                   <a className="link" href={`mailto:${siteConfig.email}`}>
-                    email the team
+                    Email the team
                   </a>
                 </li>
               </ul>
+              <div className="frame frame--photo q-photo">
+                <img
+                  alt="An operations worker reviewing electronic invoices and reports at a desk"
+                  className="frame__img"
+                  data-source="client"
+                  data-subject="invoice review at a desk"
+                  loading="lazy"
+                  src="/images/solution-cards/electronic-invoicing.webp"
+                />
+              </div>
             </div>
             <div className="form-panel span-6 start-7">
               <form
@@ -256,13 +263,6 @@ export default function ContactPage() {
                 <p className="form__status" data-form-status="" role="status" />
               </form>
             </div>
-          </div>
-          <div className="enquiry-marquee" data-moment="marquee-row" data-moment-opts='{"speed": 36}'>
-            <ul className="mo-mq__track">
-              {formats.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>

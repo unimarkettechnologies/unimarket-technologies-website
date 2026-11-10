@@ -3,7 +3,7 @@ import Script from 'next/script';
 
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
-import { primaryAction, siteConfig } from '@/config/site';
+import { siteConfig } from '@/config/site';
 
 
 /*
@@ -131,13 +131,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         {children}
         <SiteFooter />
-        {/* the phone action bar (system.md, Nav): under 640px the nav's button moves into the sheet and this bar carries
-            the main action once the hero's button has scrolled away; system.js shows and hides it */}
-        <nav aria-label="Quick actions" className="actionbar">
-          <a className="btn btn--primary" href={primaryAction.href}>
-            {primaryAction.label}
-          </a>
-        </nav>
         <Script src="/assets/system.js" strategy="afterInteractive" type="module" />
         <Script src="/assets/motion/motion.js" strategy="afterInteractive" type="module" />
         <Script src="/assets/layout/layout.js" strategy="afterInteractive" type="module" />

@@ -6,7 +6,9 @@
 
 /* the client's logo replaces the dealt mark; the file is trimmed and transparent, so it sits on any ground */
 .nav__logo img { height: 36px; width: auto; }
-@media (max-width: 639px) { .nav__logo img { height: 30px; } }
+.nav__logo .nav__mark { display: none; }
+/* a phone keeps the client's mark alone, so the mark, the main button and the menu button fit one bar */
+@media (max-width: 639px) { .nav .nav__logo .nav__word { display: none; } .nav .nav__logo .nav__mark { display: block; height: 36px; } }
 
 /* the kit's fragments take the page's accent when they stand on the page ground (inside a lit panel the
    ground's own accent applies, as system.js sets it) */
@@ -178,27 +180,37 @@
 #paths .tab-panel { min-height: 152px; margin-top: var(--s-6); }
 #paths .tabs { margin-top: var(--s-6); }
 
-/* /solutions: the five solutions as a ruled list, each row one link, its photograph zooming inside its frame */
-.sol-list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
-.sol-list > li { border-bottom: 1px solid var(--line); }
-.sol-list__row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: var(--s-5); align-items: center; padding: var(--s-3) 0; color: inherit; text-decoration: none; }
-.sol-list__pic { display: block; width: 120px; aspect-ratio: 4 / 3; border-radius: var(--r-sm); overflow: clip; }
-.sol-list__pic > img { width: 100%; height: 100%; object-fit: cover; }
-.sol-list__text { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-5); align-items: baseline; }
-.sol-list__line { color: var(--ink); }
-.sol-list__row:hover h3, .sol-list__row:focus-visible h3 { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-@media (max-width: 1023px) { .sol-list__text { grid-template-columns: minmax(0, 1fr); gap: var(--s-1); } }
-@media (max-width: 639px) { .sol-list__row { grid-template-columns: 96px minmax(0, 1fr); gap: var(--s-4); } .sol-list__pic { width: 96px; } }
-
-#engagement .frame .dg, #workflow .frame .dg { position: absolute; inset: 0; }
+/* /solutions: the five solutions as photo cards in two groups */
+#all .grid .panel { --p-h: 250px; }
+#all .grid > .span-6 .panel { --p-h: 230px; }
+#all > .wrap > .grid:last-child { align-self: start; flex: none; }
+@media (min-width: 1024px) and (max-width: 1279px) { #all .grid > .span-4 { grid-column: span 4; } #all .grid .panel { --p-h: 200px; } }
+@media (min-width: 640px) and (max-width: 1023px) { main > #all { --h: 1; } main > #all > .wrap { display: flex; flex-direction: column; row-gap: var(--s-5); } #all .grid > .span-4 { grid-column: span 4; } #all .grid > .span-6 { grid-column: span 6; } #all .grid .panel, #all .grid > .span-6 .panel { --p-h: 160px; } }
+@media (max-width: 639px) {
+  #all { --hm: 2; }
+  #all .grid > .card { display: grid; grid-template-columns: minmax(0, 1fr) 112px; column-gap: var(--s-4); padding: 0; overflow: clip; }
+  #all .card > h3, #all .card > p { grid-column: 1; padding-left: var(--s-5); }
+  #all .card > h3 { padding-top: var(--s-5); }
+  #all .card > p { padding-bottom: var(--s-5); }
+  #all .card > .panel { grid-column: 2; grid-row: 1 / span 2; margin: 0; --p-h: 120px; min-height: 120px; border-radius: 0; }
+}
+/* /solutions: the hero window narrows with its frame (1024 to 1279: no side bar, no count column) */
+@media (max-width: 1279px) { .hero__art .d-side { display: none; } .hero__art .d-win__body { grid-template-columns: 1fr; } .hero__art .d-row { grid-template-columns: 36px minmax(0, 1fr) 96px; } .hero__art .d-row .num { display: none; } }
+.hero__art .d-win__body { min-height: 0; }
+/* tablet and phone: the split frames keep to the screen */
+@media (min-width: 640px) and (max-width: 1023px) { #paths .frame--split, #engagement .frame--split { --ratio: 50%; } }
+@media (max-width: 639px) { #paths .frame--split, #engagement .frame--split { --ratio: 75%; } }
+#workflow .frame .dg { position: absolute; inset: 0; }
 
 /* ------------------------------------------------------------------ /solutions/pos-eis */
 .facts { list-style: none; margin: 0; padding: 0; display: grid; }
 .facts > li { padding: var(--s-3) 0; border-top: 1px solid var(--line); }
 .facts > li:last-child { border-bottom: 1px solid var(--line); }
-.pos--wide { width: 640px; }
-@media (max-width: 1279px) { .pos--wide { width: 560px; } }
-@media (max-width: 639px) { .pos--wide { width: 300px; } }
+/* in a split frame the till ends 24px inside the frame's right edge and is cut only by its bottom */
+.pos--wide { width: min(640px, calc(100% - 24px)); }
+.at-corner:has(> .pos--wide) { right: 0; }
+.frame .pos__meta { display: none; }
+@media (max-width: 1279px) { .frame .pos__basket { display: none; } .frame .pos__body { grid-template-columns: minmax(0, 1fr); } }
 #payments .panel { --p-h: 320px; }
 @media (min-width: 640px) and (max-width: 1023px) { #payments .grid > .card { grid-column: span 6; } #payments .panel { --p-h: 220px; } }
 @media (max-width: 639px) { #payments { --hm: 2; } #payments .panel { --p-h: 220px; } }
@@ -247,8 +259,43 @@
 .form .field--check label { font-weight: 400; font-size: var(--t-body); line-height: 1.5; }
 .form .field--check .field__error { grid-column: 1 / -1; }
 .form textarea { min-height: 96px; }
-.enquiry-marquee { margin-top: var(--s-8); }
 @media (max-width: 639px) { .form-panel { padding: var(--s-5); } #enquiry { --hm: 2; } }
 
 /* 320px: the close's big button keeps inside the screen */
 @media (max-width: 359px) { .closing__cta .btn--xl { padding-inline: var(--s-4); font-size: var(--t-body); } }
+
+/* 1024 to 1279: the home card groups keep to their screens */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .build > .build__top > .panel { --p-h: 150px; }
+  .build__pic { min-height: 120px; }
+  #process { --h: 2; }
+}
+/* the statement fills its screen on a tablet and a phone (letters-assemble stands as written there) */
+@media (max-width: 1023px) { #statement .mo-la__type { font-size: 17vw; max-width: 8ch; } }
+@media (max-width: 639px) { #statement .mo-la__type { font-size: 24vw; } #statement .mo-la__sub { font-size: 22px; line-height: 1.55; margin-top: var(--s-7); } }
+
+/* the footer's link columns at the tablet: the logo across, then the three columns on the lines */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .closing__links > .grid > .span-4 { grid-column: 1 / -1; }
+  .closing__links > .grid > .footer__col { grid-column: auto / span 4; }
+}
+
+/* /solutions/pos-eis: sections at the tablet and the phone */
+@media (min-width: 640px) and (max-width: 1023px) { #checkout .frame--split, #workflow .frame--split { --ratio: 50%; } main > #eis:not(.is-live) { height: calc(2 * 100svh); } }
+@media (max-width: 639px) {
+  #workflow .frame--split { --ratio: 60%; }
+  #checkout { --hm: 2; }
+  #payments .panel { --p-h: 300px; }
+  main > #eis:not(.is-live) { height: calc(2 * 100lvh); }
+}
+
+/* /contact: the street set large (liquid-type), filling its screen at every width */
+#office .mo-lt__type { font: var(--display-weight) clamp(64px, 9vw, 136px)/1 var(--font-display); letter-spacing: var(--display-tracking-xl); max-width: 12ch; }
+#office .statement__sub { max-width: 46ch; margin-top: var(--s-6); color: var(--ink); }
+#office .statement__link { display: inline-block; margin-top: var(--s-5); }
+@media (max-width: 1023px) { #office .mo-lt__type { font-size: 14vw; } }
+@media (max-width: 639px) { #office .mo-lt__type { font-size: 19vw; } #office .statement__sub { font-size: 22px; line-height: 1.55; } }
+#enquiry .q-photo { aspect-ratio: 4 / 3; }
+#enquiry .facts > li { border: 0; padding: 0; }
+@media (max-width: 1023px) { .form-panel { padding: 0; background: none; } }
+@media (min-width: 640px) and (max-width: 1023px) { #enquiry { --h: 2; } #enquiry .grid > * { grid-column: 1 / -1; } }

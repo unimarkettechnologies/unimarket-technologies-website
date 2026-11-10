@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 
 import { Arrow } from '@/components/arrow';
-import { Diagram } from '@/components/diagram';
+import { PosWindow } from '@/components/pos-window';
 import { primaryAction, solutions } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -22,33 +22,41 @@ export const metadata: Metadata = {
   band, line-carries-colour, a timeline diagram card · footer.closing
 */
 
-const timeline = {
-  layout: 'timeline',
-  alt: 'Every project runs in five stages: understand, scope, prototype, build, and launch with support.',
-  steps: [
-    { label: 'Understand', sub: 'Workshop', icon: 'ui:users' },
-    { label: 'Scope', sub: 'Written plan', icon: 'ui:file-text' },
-    { label: 'Prototype', sub: 'Screens to test', icon: 'ui:panels-top-left' },
-    { label: 'Build', sub: 'Tested release', icon: 'ui:code' },
-    { label: 'Launch', sub: 'Training, support', icon: 'ui:rocket' },
-  ],
-};
+const stages = [
+  'Understand: a workshop on the problem',
+  'Scope: a written plan you approve',
+  'Prototype: screens your staff test',
+  'Build: a tested release',
+  'Launch: training and support',
+];
 
 const stock = [
   { name: 'Cooking oil, 2 L', unit: 'Case of 12', n: '18', chip: 'Low by Thu', cls: 'd-chip--low', tone: '#f1e3b8' },
   { name: 'Rice, 5 kg', unit: 'Bag', n: '64', chip: 'In stock', cls: '', tone: '#efe9dc' },
   { name: 'Bath soap', unit: 'Box of 48', n: '0', chip: 'Sold out', cls: 'd-chip--out', tone: '#dfe9f3' },
-  { name: 'Sugar, 2 kg', unit: 'Bag', n: '40', chip: 'In stock', cls: '', tone: '#f4efe6' },
   { name: 'Maize flour, 10 kg', unit: 'Bag', n: '22', chip: 'Low by Sat', cls: 'd-chip--low', tone: '#f3ead2' },
-  { name: 'Tea leaves, 250 g', unit: 'Box of 24', n: '75', chip: 'In stock', cls: '', tone: '#dfe8dc' },
-  { name: 'Matches', unit: 'Pack of 10', n: '120', chip: 'In stock', cls: '', tone: '#f0dcd6' },
 ];
 
-const tick = (
-  <svg className="ui-icon" viewBox="0 0 16 16">
-    <path d="m3.5 8.4 2.8 2.8 6.2-6.4" />
-  </svg>
-);
+
+type Solution = (typeof solutions)[number];
+
+/* one solution: its photograph in a flush panel, the title as the card's link (to its page, or the contact page) */
+function SolutionCard({ s, span }: { s: Solution; span: string }) {
+  const href = s.id === 'enterprise' || s.id === 'business' ? '/contact' : s.listHref;
+  return (
+    <article className={`card card--row ${span}`} id={s.id}>
+      <h3>
+        <a className="card__link" href={href}>
+          {s.title}
+        </a>
+      </h3>
+      <p>{s.description}</p>
+      <div className="panel panel--flush">
+        <img alt={s.imageAlt} className="frame__img" data-source="client" data-subject={s.title} loading="lazy" src={s.image} />
+      </div>
+    </article>
+  );
+}
 
 export default function SolutionsPage() {
   return (
@@ -59,8 +67,8 @@ export default function SolutionsPage() {
             <div className="hero__text span-5">
               <h1 id="hero-h">POS, EIS and business software for Malawi</h1>
               <p className="hero__lead">
-                Five solutions from one Blantyre team: the till, card machines, MRA EIS invoicing, enterprise systems,
-                and websites and apps. Start with one and connect the rest later.
+                Five solutions from our team in Blantyre: the till, card machines, MRA EIS invoicing, enterprise
+                systems, and websites and apps. Start with one and connect the rest later.
               </p>
               <div className="btn-row">
                 <a className="btn btn--primary" href={primaryAction.href}>
@@ -223,48 +231,14 @@ export default function SolutionsPage() {
                 </a>
               </div>
             </div>
-            <div className="frame frame--split span-6 start-7">
-              <div className="stage stage--fade-b">
-                <div
-                  className="at-rise fit"
-                  data-ui-loop=""
-                  id="screen-1"
-                  style={{ '--fit-max': '380px', '--ax': 'max(32px, 50% - 190px)', '--ay': '56px', '--ay-sm': '24px' } as CSSProperties}
-                >
-                  <div className="ui ui-notify" data-ui="notify">
-                    <ul className="ui-notify__list" data-notify-list="">
-                      <li className="ui-note">
-                        <span className="ui-note__ico">{tick}</span>
-                        <span className="ui-note__text">
-                          <span className="ui-note__title">
-                            Invoice R-20418 accepted<time>now</time>
-                          </span>
-                          <span className="ui-note__body">MRA EIS, Till 2, MWK 54,250</span>
-                        </span>
-                      </li>
-                      <li className="ui-note">
-                        <span className="ui-avatar ui-note__av" data-tone="2">
-                          S
-                        </span>
-                        <span className="ui-note__text">
-                          <span className="ui-note__title">
-                            Cooking oil low by Thursday<time>12m</time>
-                          </span>
-                          <span className="ui-note__body">18 cases left at Front counter</span>
-                        </span>
-                        <span className="ui-btn ui-btn--sm ui-note__btn">Order</span>
-                      </li>
-                      <li className="ui-note">
-                        <span className="ui-note__ico">{tick}</span>
-                        <span className="ui-note__text">
-                          <span className="ui-note__title">
-                            Day closed at Till 1<time>1h</time>
-                          </span>
-                          <span className="ui-note__body">38 sales, cash and card counted</span>
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
+            <div
+              aria-label="Three screens, one per way to start: the Unimarket till with a sale paid by card, a queue of requests waiting for approval, and a delivery app scope with a decision marked"
+              className="frame frame--split span-6 start-7"
+              role="img"
+            >
+              <div className="stage stage--fade-br">
+                <div className="at-corner to-edge" id="screen-1" style={{ '--ax': '56px', '--ay': '56px' } as CSSProperties}>
+                  <PosWindow className="pos--wide" />
                 </div>
                 <div
                   className="at-corner to-edge"
@@ -407,38 +381,25 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      <section aria-labelledby="all-h" className="section" id="all">
+      <section aria-labelledby="all-h" className="section g2" id="all">
         <div className="wrap">
-          <div className="section-head">
-            <h2 id="all-h">
-              All five solutions. <span className="muted">Each can start small and grow.</span>
-            </h2>
+          <div className="group">
+            <div className="section-head">
+              <h2 id="all-h">
+                All five solutions. <span className="muted">Each can start small and grow.</span>
+              </h2>
+            </div>
+            <div className="grid">
+              {solutions.slice(0, 3).map((s) => (
+                <SolutionCard key={s.id} s={s} span="span-4" />
+              ))}
+            </div>
           </div>
-          <ul className="sol-list">
-            {solutions.map((s) => {
-              const href = s.id === 'enterprise' || s.id === 'business' ? '/contact' : s.listHref;
-              return (
-                <li id={s.id} key={s.id}>
-                  <a className="sol-list__row" href={href}>
-                    <div className="sol-list__pic">
-                      <img
-                        alt={s.imageAlt}
-                        className="frame__img"
-                        data-source="client"
-                        data-subject={s.title}
-                        loading="lazy"
-                        src={s.image}
-                      />
-                    </div>
-                    <div className="sol-list__text">
-                      <h3 className="t-card">{s.title}</h3>
-                      <p className="sol-list__line">{s.description}</p>
-                    </div>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="grid">
+            {solutions.slice(3).map((s) => (
+              <SolutionCard key={s.id} s={s} span="span-6" />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -463,7 +424,38 @@ export default function SolutionsPage() {
               </a>
             </div>
             <div className="frame frame--split span-6 start-7">
-              <Diagram spec={timeline} />
+              <div className="stage stage--fade-b">
+                <div
+                  className="at-rise fit"
+                  data-ui-still=""
+                  style={{ '--fit-max': '340px', '--ax': 'max(32px, 50% - 170px)', '--ay': '56px', '--ay-sm': '24px' } as CSSProperties}
+                >
+                  <div className="ui ui-panel ui-checks" data-ui="checklist">
+                    <div className="ui-checks__head">
+                      <div className="ui-title">Project plan, five stages</div>
+                      <span className="ui-spacer" />
+                      <div className="ui-meta" data-checks-count="">
+                        2 of 5
+                      </div>
+                    </div>
+                    <div className="ui-checks__bar">
+                      <i data-checks-bar="" style={{ '--k': 0.4 } as CSSProperties} />
+                    </div>
+                    <ul className="ui-checks__list">
+                      {stages.map((st, i) => (
+                        <li className={`ui-check${i < 2 ? ' is-done' : ''}`} key={st}>
+                          <span className="ui-check__box">
+                            <svg viewBox="0 0 16 16">
+                              <path d="m4.5 8.2 2.3 2.3 4.7-5" />
+                            </svg>
+                          </span>
+                          <span className="ui-check__label">{st}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

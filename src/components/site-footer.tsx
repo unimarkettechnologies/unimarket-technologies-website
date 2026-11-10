@@ -15,7 +15,7 @@ const arrow = (
 */
 export function SiteFooter() {
   return (
-    <footer aria-labelledby="close-h" className="footer closing footer--statement" id="contact">
+    <footer aria-labelledby="close-h" className="footer closing footer--statement g2m" id="contact">
       <div className="wrap">
         <div className="closing__cta close--type">
           <div className="section-head">

@@ -20,7 +20,14 @@ export function SiteHeader() {
           Skip to content
         </a>
         <a aria-label="Unimarket Technologies home" className="nav__logo" href="/">
-          <img alt="Unimarket Technologies" height={160} src="/logos/unimarket-logo-horizontal-clear.png" width={652} />
+          <img
+            alt="Unimarket Technologies"
+            className="nav__word"
+            height={160}
+            src="/logos/unimarket-logo-horizontal-clear.png"
+            width={652}
+          />
+          <img alt="" className="nav__mark" height={160} src="/logos/unimarket-mark-clear.png" width={165} />
         </a>
         <nav aria-label="Main" className="nav__links">
           {navigation.map((item) => {

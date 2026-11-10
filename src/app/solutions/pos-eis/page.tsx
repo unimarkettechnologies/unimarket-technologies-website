@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 
 import { Arrow } from '@/components/arrow';
-import { Diagram } from '@/components/diagram';
 import { PosWindow, sale } from '@/components/pos-window';
 import { primaryAction } from '@/config/site';
 
@@ -23,17 +22,13 @@ export const metadata: Metadata = {
   #eis pinned-chapters, two screens live (photograph, invoice states, the server log) · #questions faq · footer.closing
 */
 
-const workflow = {
-  layout: 'timeline',
-  alt: 'A sale moves through five steps: sale captured, payment recorded, stock updated, invoice sent to MRA EIS, reports refreshed.',
-  steps: [
-    { label: 'Sale captured', sub: 'At the till', icon: 'ui:shopping-cart' },
-    { label: 'Payment recorded', sub: 'Cash or card', icon: 'ui:credit-card' },
-    { label: 'Stock updated', sub: 'Same sale', icon: 'ui:package' },
-    { label: 'Invoice sent', sub: 'MRA EIS', icon: 'ui:receipt' },
-    { label: 'Reports refreshed', sub: 'By till', icon: 'ui:chart-no-axes-column-increasing' },
-  ],
-};
+const workflow = [
+  'Sale captured at Till 2',
+  'Card payment recorded',
+  'Stock updated, 4 lines',
+  'Invoice sent to MRA EIS',
+  'Day report refreshed',
+];
 
 const faq = [
   {
@@ -41,19 +36,19 @@ const faq = [
     a: 'That depends on the payment provider and the terminal model. We check both in the consultation, before planning the build.',
   },
   {
-    q: 'Can the till keep selling without internet?',
+    q: 'Can the POS keep selling without internet?',
     a: 'We plan for it: sales go on, invoices wait in a queue and are sent when the line returns, within the current MRA rules.',
   },
   {
-    q: 'Can it handle returns and corrections?',
+    q: 'Can the POS handle returns and corrections?',
     a: 'Yes. Returns, voids and corrections are mapped in the first step, so each one produces the right document.',
   },
   {
-    q: 'What do you need from us to start?',
+    q: 'What do you need to start a POS project?',
     a: 'A walk through the counter, a list of what you sell and how customers pay, and the person who closes the day.',
   },
   {
-    q: 'Is this flow running in shops today?',
+    q: 'Is this POS flow running in shops today?',
     a: 'What this page shows is our design for the flow. Your build follows your scope, your provider and the current MRA requirements.',
   },
 ];
@@ -105,7 +100,7 @@ export default function PosEisPage() {
         <div className="wrap">
           <div className="grid">
             <div className="span-5 stack-6">
-              <h2 id="workflow-h">Five steps from sale to report</h2>
+              <h2 id="workflow-h">Five POS steps from sale to report</h2>
               <p className="t-lead">
                 Each step hands its result to the next, so nobody types the same sale twice and the day’s report agrees
                 with the till.
@@ -119,7 +114,38 @@ export default function PosEisPage() {
               </a>
             </div>
             <div className="frame frame--split span-6 start-7">
-              <Diagram spec={workflow} />
+              <div className="stage stage--fade-b">
+                <div
+                  className="at-rise fit"
+                  data-ui-loop=""
+                  style={{ '--fit-max': '340px', '--ax': 'max(32px, 50% - 170px)', '--ay': '56px', '--ay-sm': '24px' } as CSSProperties}
+                >
+                  <div className="ui ui-panel ui-checks" data-ui="checklist">
+                    <div className="ui-checks__head">
+                      <div className="ui-title">Sale {sale.number}</div>
+                      <span className="ui-spacer" />
+                      <div className="ui-meta" data-checks-count="">
+                        2 of 5
+                      </div>
+                    </div>
+                    <div className="ui-checks__bar">
+                      <i data-checks-bar="" style={{ '--k': 0.4 } as CSSProperties} />
+                    </div>
+                    <ul className="ui-checks__list">
+                      {workflow.map((st, i) => (
+                        <li className={`ui-check${i < 2 ? ' is-done' : ''}`} key={st}>
+                          <span className="ui-check__box">
+                            <svg viewBox="0 0 16 16">
+                              <path d="m4.5 8.2 2.3 2.3 4.7-5" />
+                            </svg>
+                          </span>
+                          <span className="ui-check__label">{st}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -129,7 +155,7 @@ export default function PosEisPage() {
         <div className="wrap">
           <div className="grid">
             <div className="span-5 stack-6">
-              <h2 id="checkout-h">A checkout for a busy counter</h2>
+              <h2 id="checkout-h">POS checkout for a busy counter</h2>
               <p className="t-lead">
                 The cashier scans, takes the payment and prints the receipt on one screen. Prices, stock and VAT come
                 from the same record.
@@ -167,7 +193,7 @@ export default function PosEisPage() {
           </div>
           <div className="grid">
             <article className="card card--row card--open span-6 m-nolift">
-              <h3>Takes the card at the counter</h3>
+              <h3>Takes card machine payments</h3>
               <p>The amount goes from the till to the terminal, so the cashier never types it twice.</p>
               <div className="panel panel--flush">
                 <img
@@ -181,7 +207,7 @@ export default function PosEisPage() {
               </div>
             </article>
             <article className="card card--row card--open span-6 m-nolift">
-              <h3>Shows every payment state</h3>
+              <h3>Shows every card payment state</h3>
               <p>Approved, declined and cancelled payments each show plainly, with the terminal reference kept on the sale.</p>
               <div className="panel">
                 <div className="stage stage--fade-b">
@@ -249,7 +275,7 @@ export default function PosEisPage() {
             <h2 id="eis-h">MRA EIS invoicing, planned first</h2>
             <ol className="mo-pc__steps">
               <li className="mo-pc__step">
-                <h3>Confirm the rules</h3>
+                <h3>Confirm the MRA EIS rules</h3>
                 <p>We check the current MRA requirements with you and map sales, returns, corrections and outages.</p>
                 <figure className="mo-pc__visual">
                   <img
@@ -262,7 +288,7 @@ export default function PosEisPage() {
                 </figure>
               </li>
               <li className="mo-pc__step">
-                <h3>Send from the sale</h3>
+                <h3>Send each invoice from the POS</h3>
                 <p>Each invoice is built from its sale and sent to MRA EIS. Its state shows beside the sale.</p>
                 <figure
                   aria-label="Invoice R-20418: built from the sale, sent to MRA EIS and accepted"
@@ -333,6 +359,16 @@ export default function PosEisPage() {
               <a className="link" href="/contact">
                 Ask your own question
               </a>
+              <div className="frame frame--photo q-photo">
+                <img
+                  alt={'A shop worker using point-of-sale software at a checkout'}
+                  className="frame__img"
+                  data-source="client"
+                  data-subject="POS software at a checkout"
+                  loading="lazy"
+                  src="/images/solution-cards/pos-software.webp"
+                />
+              </div>
             </div>
             <div className="faq span-6 start-7">
               {faq.map((item) => (
