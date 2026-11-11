@@ -1,99 +1,98 @@
 'use client';
 
-import { ArrowRight, Menu, X } from 'lucide-react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-import { BrandLogo, BrandLogoHoriz } from '@/components/brand-logo';
-import { Button } from '@/components/ui/button';
-import { navigation } from '@/config/site';
-import { cn } from '@/lib/utils';
+import { navigation, primaryAction, solutions } from '@/config/site';
 
+/*
+  nav-centre (sections-library.md): one fixed, opaque bar on the page's .wrap, the logo on the left line, the
+  words on the page axis, the main action ending on the right line. system.js runs the phone sheet, Escape,
+  aria-expanded and the focus return; this component only marks the current page. Plain <a> links: every
+  route loads whole, so the kit starts once on each page.
+*/
 export function SiteHeader() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-white/90 backdrop-blur-xl">
-      <div className="site-container flex h-[88px] items-center justify-between gap-6">
-        {/* <BrandLogo priority /> */}
-        <BrandLogoHoriz priority />
-        <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
+    <header className="nav nav--centre">
+      <div className="wrap nav__bar">
+        <a className="skip-link" href="#top">
+          Skip to content
+        </a>
+        <a aria-label="Unimarket Technologies home" className="nav__logo" href="/">
+          <img
+            alt="Unimarket Technologies"
+            className="nav__word"
+            height={160}
+            src="/logos/unimarket-logo-horizontal-clear.png"
+            width={652}
+          />
+          <img alt="" className="nav__mark" height={160} src="/logos/unimarket-mark-clear.png" width={165} />
+        </a>
+        <nav aria-label="Main" className="nav__links">
           {navigation.map((item) => {
-            const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
-
+            const current = pathname === item.href ? 'page' : undefined;
+            if (item.href !== '/solutions') {
+              return (
+                <div className="nav__item" key={item.href}>
+                  <a aria-current={current} className="nav__link" href={item.href}>
+                    {item.label}
+                  </a>
+                </div>
+              );
+            }
             return (
-              <Link
-                className={cn(
-                  'rounded-lg px-3.5 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground',
-                  active && 'bg-brand-50 text-brand-800',
-                )}
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </Link>
+              <div className="nav__item" key={item.href}>
+                <a aria-current={current} className="nav__link" href={item.href}>
+                  {item.label}{' '}
+                  <svg aria-hidden="true" className="chev" viewBox="0 0 12 12">
+                    <path
+                      d="M3 4.5l3 3 3-3"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </a>
+                <div className="nav__menu">
+                  <div className="wrap grid">
+                    <div className="menu-col span-3">
+                      <p className="t-label">At the counter</p>
+                      {solutions.slice(0, 3).map((s) => (
+                        <a href={s.href} key={s.id}>
+                          {s.title}
+                          <span>{s.menuLine}</span>
+                        </a>
+                      ))}
+                    </div>
+                    <div className="menu-col span-3">
+                      <p className="t-label">Behind the counter</p>
+                      {solutions.slice(3).map((s) => (
+                        <a href={s.listHref} key={s.id}>
+                          {s.title}
+                          <span>{s.menuLine}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </nav>
-
-        <div className="hidden lg:block">
-          <Button href="/contact">
-            Request a consultation
-            <ArrowRight />
-          </Button>
+        <div className="nav__actions">
+          <a className="btn btn--primary" href={primaryAction.href}>
+            {primaryAction.label}
+          </a>
         </div>
-
-        <button
-          aria-expanded={open}
-          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border text-foreground transition hover:bg-muted lg:hidden"
-          onClick={() => setOpen((current) => !current)}
-          type="button"
-        >
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        <button aria-expanded="false" aria-label="Menu" className="nav__toggle" type="button">
+          <svg aria-hidden="true" height="18" viewBox="0 0 18 18" width="18">
+            <path d="M2 5h14M2 13h14" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
+          </svg>
         </button>
       </div>
-
-      {open ? (
-        <div className="border-t border-border bg-white lg:hidden">
-          <div className="site-container grid gap-2 py-5">
-            {navigation.map((item) => (
-              <Link
-                className={cn(
-                  'rounded-xl px-4 py-3 text-base font-medium text-muted-foreground',
-                  (item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)) &&
-                    'bg-brand-50 text-brand-800',
-                )}
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button className="mt-3 w-full" href="/contact">
-              Request a consultation
-              <ArrowRight />
-            </Button>
-          </div>
-        </div>
-      ) : null}
     </header>
   );
 }

@@ -24,3 +24,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local originals and private material
+private/
+
+# tasteskill checks: profiles, shots and gate state stay local; the waivers and coined names are kept
+.taste-skill/*
+!.taste-skill/waivers.json
+!.taste-skill/names.json

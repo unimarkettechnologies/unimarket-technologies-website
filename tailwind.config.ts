@@ -9,14 +9,12 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        pill: 'var(--radius-pill)',
         card: 'var(--radius-card)',
       },
       boxShadow: {
-        xs: '0 1px 2px rgba(7, 48, 113, 0.05)',
-        card: '0 12px 32px rgba(7, 48, 113, 0.08)',
-        float: '0 20px 50px rgba(7, 48, 113, 0.14)',
-        glow: '0 0 0 1px rgba(52, 112, 179, 0.10), 0 18px 48px rgba(52, 112, 179, 0.18)',
+        xs: '0 1px 2px rgb(var(--brand-950) / 0.05)',
+        card: '0 12px 32px rgb(var(--brand-950) / 0.08)',
+        float: '0 20px 50px rgb(var(--brand-950) / 0.14)',
       },
       colors: {
         border: 'hsl(var(--border) / <alpha-value>)',
@@ -60,10 +58,13 @@ const config: Config = {
           700: 'rgb(var(--brand-700) / <alpha-value>)',
           800: 'rgb(var(--brand-800) / <alpha-value>)',
           950: 'rgb(var(--brand-950) / <alpha-value>)',
+          ink: 'rgb(var(--brand-ink) / <alpha-value>)',
         },
+        canvas: 'rgb(var(--canvas) / <alpha-value>)',
       },
-      maxWidth: {
-        'content-wide': '86rem',
+      transitionTimingFunction: {
+        out: 'var(--ease-out)',
+        standard: 'var(--ease-standard)',
       },
       // Fonts are loaded through next/font/google in src/app/layout.tsx
       fontFamily: {
