@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 
-import { primaryAction, siteConfig } from '@/config/site';
+import { primaryAction, siteConfig, photo } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Contact: POS and MRA EIS projects in Malawi',
@@ -43,7 +43,7 @@ export default function ContactPage() {
             >
               <div className="ly-collage__set is-on">
                 <div className="ly-piece" style={pos('50%', '34%', '46%', '60%')}>
-                  <img alt="" src="/images/retail-pos-payment.webp" style={{ objectPosition: '50% 50%' }} />
+                  <img alt="" loading="lazy" {...photo('/images/retail-pos-payment.webp', '(max-width: 639px) 60vw, 25vw')} style={{ objectPosition: '50% 50%' }} />
                 </div>
                 <div className="ly-piece pc-receipt" style={pos('4%', '6%', '42%')}>
                   <b>Front counter, Till 2</b>
@@ -97,12 +97,12 @@ export default function ContactPage() {
                   <span className="pc-ok">Paid by card</span>
                 </div>
                 <div className="ly-piece" style={pos('8%', '72%', '46%', '24%')}>
-                  <img alt="" src="/images/technology-team.webp" style={{ objectPosition: '50% 40%' }} />
+                  <img alt="" loading="lazy" {...photo('/images/technology-team.webp', '(max-width: 639px) 60vw, 25vw')} style={{ objectPosition: '50% 40%' }} />
                 </div>
               </div>
               <div aria-hidden="true" className="ly-collage__set">
                 <div className="ly-piece" style={pos('4%', '6%', '46%', '50%')}>
-                  <img alt="" src="/images/inventory-team.webp" style={{ objectPosition: '50% 45%' }} />
+                  <img alt="" loading="lazy" {...photo('/images/inventory-team.webp', '(max-width: 639px) 60vw, 25vw')} style={{ objectPosition: '50% 45%' }} />
                 </div>
                 <div className="ly-piece pc-report" style={pos('48%', '40%', '48%')}>
                   <small>Day closed · 38 sales</small>
@@ -172,7 +172,7 @@ export default function ContactPage() {
                   data-source="client"
                   data-subject="invoice review at a desk"
                   loading="lazy"
-                  src="/images/solution-cards/electronic-invoicing.webp"
+                  {...photo('/images/solution-cards/electronic-invoicing.webp')}
                 />
               </div>
             </div>

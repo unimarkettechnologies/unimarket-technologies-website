@@ -82,3 +82,21 @@ export const solutions = [
     imageAlt: 'A technology team mapping a business workflow on a wall',
   },
 ] as const;
+
+/** Natural sizes of the client's photographs; each has -320, -480 and -800 copies beside it for srcset. */
+const photoSizes: Record<string, [number, number]> = {
+  '/images/retail-pos-payment.webp': [1672, 941],
+  '/images/inventory-team.webp': [1536, 1024],
+  '/images/technology-team.webp': [1448, 1086],
+  '/images/solution-cards/card-payments.webp': [1600, 1001],
+  '/images/solution-cards/electronic-invoicing.webp': [1600, 1001],
+  '/images/solution-cards/enterprise-software.webp': [1600, 1001],
+  '/images/solution-cards/pos-software.webp': [1600, 1001],
+};
+
+/** The <img> props of a photograph: src, srcSet, sizes and its intrinsic width and height (no layout shift). */
+export function photo(src: string, sizes = '(max-width: 639px) 100vw, 50vw') {
+  const [width, height] = photoSizes[src] ?? [1600, 1000];
+  const base = src.replace(/\.webp$/, '');
+  return { src, srcSet: `${base}-320.webp 320w, ${base}-480.webp 480w, ${base}-800.webp 800w, ${src} ${width}w`, sizes, width, height };
+}

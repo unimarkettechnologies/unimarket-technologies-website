@@ -23,11 +23,11 @@ export function SiteHeader() {
           <img
             alt="Unimarket Technologies"
             className="nav__word"
-            height={160}
-            src="/logos/unimarket-logo-horizontal-clear.png"
-            width={652}
+            height={80}
+            src="/logos/unimarket-logo-horizontal-clear-80.png"
+            width={326}
           />
-          <img alt="" className="nav__mark" height={160} src="/logos/unimarket-mark-clear.png" width={165} />
+          <img alt="" className="nav__mark" loading="lazy" height={80} src="/logos/unimarket-mark-clear-80.png" width={83} />
         </a>
         <nav aria-label="Main" className="nav__links">
           {navigation.map((item) => {

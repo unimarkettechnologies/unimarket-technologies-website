@@ -1,4 +1,1 @@
-[
-  { "check": "container-edges", "target": "section#engagement > div.mo-lc__stage", "reason": "the stage is line-carries-colour's own inset panel, added by the kit's moment.js as its section's cover; it is the dealt moment, not a page block" },
-  { "check": "flush", "target": "section#engagement > div.mo-lc__stage > div.mo-lc__cover", "reason": "the cover is the dealt moment's own inset panel in the old ground (kit moment.js); the section's words keep their padding" }
-]
+[]

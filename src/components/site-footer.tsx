@@ -31,7 +31,7 @@ export function SiteFooter() {
           <div className="grid">
             <div className="span-4 stack-4">
               <a aria-label="Unimarket Technologies home" className="nav__logo" href="/">
-                <img alt="Unimarket Technologies" height={160} src="/logos/unimarket-logo-horizontal-clear.png" width={652} />
+                <img alt="Unimarket Technologies" height={80} loading="lazy" src="/logos/unimarket-logo-horizontal-clear-80.png" width={326} />
               </a>
               <p className="footer__lede">POS software, card machines and MRA EIS invoicing for businesses in Malawi.</p>
             </div>

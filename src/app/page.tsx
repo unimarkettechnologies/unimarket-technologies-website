@@ -4,7 +4,7 @@ import { Arrow } from '@/components/arrow';
 import { Diagram } from '@/components/diagram';
 import { PosWindow } from '@/components/pos-window';
 import { SalesApp } from '@/components/sales-app';
-import { primaryAction, solutions } from '@/config/site';
+import { primaryAction, solutions, photo } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Unimarket Technologies: POS and MRA EIS software for Malawi',
@@ -139,8 +139,8 @@ export default function HomePage() {
                     className="frame__img"
                     data-source="client"
                     data-subject={s.title}
-                    loading={i === 0 ? undefined : 'lazy'}
-                    src={s.image}
+                    loading="lazy"
+                    {...photo(s.image, i === 0 ? '(max-width: 639px) 100vw, 66vw' : '(max-width: 639px) 100vw, 33vw')}
                   />
                 </div>
               </article>
@@ -162,7 +162,7 @@ export default function HomePage() {
                     data-source="client"
                     data-subject={s.title}
                     loading="lazy"
-                    src={s.image}
+                    {...photo(s.image, '(max-width: 639px) 112px, 200px')}
                   />
                 </div>
               </article>
@@ -229,7 +229,7 @@ export default function HomePage() {
                   data-source="client"
                   data-subject="workflow workshop"
                   loading="lazy"
-                  src="/images/technology-team.webp"
+                  {...photo('/images/technology-team.webp')}
                 />
               </div>
             </article>
@@ -303,7 +303,7 @@ export default function HomePage() {
                   data-source="client"
                   data-subject="stock check in a shop"
                   loading="lazy"
-                  src="/images/inventory-team.webp"
+                  {...photo('/images/inventory-team.webp')}
                 />
               </div>
             </article>
@@ -327,7 +327,7 @@ export default function HomePage() {
                   data-source="client"
                   data-subject="card payment at a shop counter"
                   loading="lazy"
-                  src="/images/retail-pos-payment.webp"
+                  {...photo('/images/retail-pos-payment.webp')}
                 />
               </div>
             </div>
