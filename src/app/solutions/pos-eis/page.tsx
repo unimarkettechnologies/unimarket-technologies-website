@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 
 import { Arrow } from '@/components/arrow';
 import { PosWindow, sale } from '@/components/pos-window';
-import { primaryAction } from '@/config/site';
+import { primaryAction, photo } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'POS and MRA EIS: invoicing for Malawi retail',
@@ -17,18 +17,11 @@ export const metadata: Metadata = {
 
 /*
   /solutions/pos-eis (software). Screens at 1440x900:
-  hero split (the counter photograph, one float card) · #workflow five steps as a timeline diagram card ·
+  hero split (the counter photograph, one float card) · #workflow five steps beside a stock-check photograph ·
   #checkout split-text-left, the till window (object) · #payments two cards, photograph and payment states ·
   #eis pinned-chapters, two screens live (photograph, invoice states, the server log) · #questions faq · footer.closing
 */
 
-const workflow = [
-  'Sale captured at Till 2',
-  'Card payment recorded',
-  'Stock updated, 4 lines',
-  'Invoice sent to MRA EIS',
-  'Day report refreshed',
-];
 
 const faq = [
   {
@@ -81,7 +74,7 @@ export default function PosEisPage() {
                 data-source="client"
                 data-subject="card payment at a shop counter"
                 fetchPriority="high"
-                src="/images/retail-pos-payment.webp"
+                {...photo('/images/retail-pos-payment.webp')}
                 style={{ '--ly-pos': '50% 50%' } as CSSProperties}
               />
               <div className="ly-float">
@@ -113,39 +106,15 @@ export default function PosEisPage() {
                 See how invoices reach MRA EIS
               </a>
             </div>
-            <div className="frame frame--split span-6 start-7">
-              <div className="stage stage--fade-b">
-                <div
-                  className="at-rise fit"
-                  data-ui-loop=""
-                  style={{ '--fit-max': '340px', '--ax': 'max(32px, 50% - 170px)', '--ay': '56px', '--ay-sm': '24px' } as CSSProperties}
-                >
-                  <div className="ui ui-panel ui-checks" data-ui="checklist">
-                    <div className="ui-checks__head">
-                      <div className="ui-title">Sale {sale.number}</div>
-                      <span className="ui-spacer" />
-                      <div className="ui-meta" data-checks-count="">
-                        2 of 5
-                      </div>
-                    </div>
-                    <div className="ui-checks__bar">
-                      <i data-checks-bar="" style={{ '--k': 0.4 } as CSSProperties} />
-                    </div>
-                    <ul className="ui-checks__list">
-                      {workflow.map((st, i) => (
-                        <li className={`ui-check${i < 2 ? ' is-done' : ''}`} key={st}>
-                          <span className="ui-check__box">
-                            <svg viewBox="0 0 16 16">
-                              <path d="m4.5 8.2 2.3 2.3 4.7-5" />
-                            </svg>
-                          </span>
-                          <span className="ui-check__label">{st}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <div className="frame frame--split frame--photo span-6 start-7">
+              <img
+                alt="A shop owner checking stock on a tablet while a worker scans products on the shelves"
+                className="frame__img"
+                data-source="client"
+                data-subject="stock check in a shop"
+                loading="lazy"
+                {...photo('/images/inventory-team.webp')}
+              />
             </div>
           </div>
         </div>
@@ -202,7 +171,7 @@ export default function PosEisPage() {
                   data-source="client"
                   data-subject="contactless card payment"
                   loading="lazy"
-                  src="/images/solution-cards/card-payments.webp"
+                  {...photo('/images/solution-cards/card-payments.webp')}
                 />
               </div>
             </article>
@@ -283,7 +252,7 @@ export default function PosEisPage() {
                     data-source="client"
                     data-subject="electronic invoicing review"
                     loading="lazy"
-                    src="/images/solution-cards/electronic-invoicing.webp"
+                    {...photo('/images/solution-cards/electronic-invoicing.webp')}
                   />
                 </figure>
               </li>
@@ -366,7 +335,7 @@ export default function PosEisPage() {
                   data-source="client"
                   data-subject="POS software at a checkout"
                   loading="lazy"
-                  src="/images/solution-cards/pos-software.webp"
+                  {...photo('/images/solution-cards/pos-software.webp')}
                 />
               </div>
             </div>

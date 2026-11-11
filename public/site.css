@@ -127,14 +127,14 @@
 @media (max-width: 639px) {
   #build { --hm: 2; }
   .build > .build__top, .build > .build__side { grid-column: 1 / -1; }
-  .build > .build__top > .panel { --p-h: 240px; }
+  .build > .build__top > .panel { --p-h: 362px; }
   .build > .build__side { grid-template-columns: minmax(0, 1fr) 112px; }
   .build__text { padding: var(--s-4) 0 var(--s-4) var(--s-5); }
   #process { --hm: 2; }
-  #process .panel { --p-h: 240px; }
+  #process .panel { --p-h: 285px; }
   #questions { --hm: 2; }
   .inv__lines, .inv__note, .inv__sum { display: none; }
-  .q-photo { aspect-ratio: 4 / 5; }
+  .q-photo { aspect-ratio: 10 / 17; }
 }
 
 /* ------------------------------------------------------------------ /solutions: the stock window (hero collage) */
@@ -284,7 +284,7 @@
 @media (min-width: 640px) and (max-width: 1023px) { #checkout .frame--split, #workflow .frame--split { --ratio: 50%; } main > #eis:not(.is-live) { height: calc(2 * 100svh); } }
 @media (max-width: 639px) {
   #workflow .frame--split { --ratio: 60%; }
-  #checkout { --hm: 2; }
+  #checkout .frame--split { --ratio: 50%; }
   #payments .panel { --p-h: 300px; }
   main > #eis:not(.is-live) { height: calc(2 * 100lvh); }
 }
@@ -299,3 +299,6 @@
 #enquiry .facts > li { border: 0; padding: 0; }
 @media (max-width: 1023px) { .form-panel { padding: 0; background: none; } }
 @media (min-width: 640px) and (max-width: 1023px) { #enquiry { --h: 2; } #enquiry .grid > * { grid-column: 1 / -1; } }
+
+/* the questions sections (home, POS and EIS): two screens at the tablet, where the answers stack under the head */
+@media (min-width: 640px) and (max-width: 1023px) { #questions { --h: 2; } }

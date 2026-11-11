@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 
 import { Arrow } from '@/components/arrow';
 import { PosWindow } from '@/components/pos-window';
-import { primaryAction, solutions } from '@/config/site';
+import { primaryAction, solutions, photo } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Solutions: POS, EIS and business software for Malawi',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   /solutions (software). Screens at 1440x900:
   hero collage (the stock window cut by its frame, the reorder card looping) · #paths tabs-tour, click only (three
   fragments) · #all the five solutions as a ruled list with the client's photographs · #engagement on the surface
-  band, line-carries-colour, a timeline diagram card · footer.closing
+  band, line-carries-colour, the project plan as a checklist fragment · footer.closing
 */
 
 const stages = [
@@ -52,7 +52,7 @@ function SolutionCard({ s, span }: { s: Solution; span: string }) {
       </h3>
       <p>{s.description}</p>
       <div className="panel panel--flush">
-        <img alt={s.imageAlt} className="frame__img" data-source="client" data-subject={s.title} loading="lazy" src={s.image} />
+        <img alt={s.imageAlt} className="frame__img" data-source="client" data-subject={s.title} loading="lazy" {...photo(s.image, '(max-width: 639px) 112px, 33vw')} />
       </div>
     </article>
   );
